@@ -132,9 +132,9 @@ Status Module::TrainStep(const std::vector<OrtValue>& inputs, std::vector<OrtVal
   feeds.insert(feeds.end(), weights_.begin(), weights_.end());
   feeds.insert(feeds.end(), gradients_.begin(), gradients_.end());
   // TODO: consider maintaining this as ortvalue instead of bool
-  OrtValue do_update_input;
-  utils::WarpInOrtValue<bool>(accumulate_gradient_, &do_update_input);
-  feeds.push_back(do_update_input);
+  OrtValue reset_grad_input;
+  utils::WarpInOrtValue<bool>(!accumulate_gradient_, &reset_grad_input);
+  feeds.push_back(reset_grad_input);
 
   // TODO: need to filter out the grads from the output ortvalues
   auto status = train_sess_->Run(RunOptions(), train_input_names_, feeds, train_output_names_, &outputs);
