@@ -8,6 +8,9 @@ import argparse
 import copy
 import logging
 import os
+import sys
+
+sys.path.insert(0, "../../")
 
 import torch
 from benchmark_helper import Precision, create_onnxruntime_session, prepare_environment, setup_logger
