@@ -7,6 +7,8 @@ import os
 import sys
 import time
 
+sys.path.insert(0, "../../")
+
 import numpy as np
 import psutil
 import torch
